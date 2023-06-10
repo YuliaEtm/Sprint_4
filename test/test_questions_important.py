@@ -2,18 +2,11 @@ import time
 
 import allure
 import pytest
+from selenium.webdriver.support.wait import WebDriverWait
 
+from data import Credential
 from locators import Locators
 from pages.page_questions_important import PageQuestionsImportant
-
-ansver = ['Сутки — 400 рублей. Оплата курьеру — наличными или картой.',
-          'Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.',
-          'Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.',
-          'Только начиная с завтрашнего дня. Но скоро станем расторопнее.',
-          'Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.',
-          'Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.',
-          'Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.',
-          'Да, обязательно. Всем самокатов! И Москве, и Московской области.']
 
 
 @pytest.mark.parametrize('num', [0, 1, 2, 3, 4, 5, 6, 7])
@@ -26,5 +19,7 @@ def test_questions_important(driver, num):
     accordion_quest = page_questions.find_elements_located(Locators.QUESTIONS_ALL)
     accordion_quest[num].click()
     accordion_ansver = page_questions.find_elements_located(Locators.ANSWER_ALL)
+
     time.sleep(3)
-    assert accordion_ansver[num].text == ansver[num]
+    #здесь я не знаю как задать ожидание, это не элемент страницы, а создаваемый список, неявное ожидание не работает.
+    assert accordion_ansver[num].text == Credential.ansver[num]

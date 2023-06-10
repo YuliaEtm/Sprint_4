@@ -27,3 +27,7 @@ class BasePage:
     def scooter_picture(self, time=3):
         WebDriverWait(self.driver, time).until(
             EC.text_to_be_present_in_element_attribute(Locators.SCOOTER_TEXT, 'src', "/assets/scooter.png"))
+
+    # def scroll(self, driver):
+    #     element =  driver.find_element(*Locators.QUESTIONS_IMPORTANT)
+    #     driver.execute_script("arguments[0].scrollIntoView();", element)
